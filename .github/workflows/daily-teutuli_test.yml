@@ -1,4 +1,4 @@
-name: Daily Challenge
+name: TEST - Daily Challenge
 on:
   workflow_dispatch:
 jobs:

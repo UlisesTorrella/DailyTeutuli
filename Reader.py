@@ -269,7 +269,11 @@ class Reader:
             </head>
             <body>
                 <p>Daily teutuli of the day:</p>
-                <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">Challenge</a>
+                <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">
+                    <img src="challenge.jpeg"  alt="Play Challenge" 
+                        style="width: 200px; height: auto; cursor: pointer; border-radius: 12px; 
+                                display: block;">
+                </a>
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
                         <td style="vertical-align: top; padding: 10px;">
@@ -354,7 +358,11 @@ class Reader:
         </head>
         <body>
             <p>Daily teutuli of the day:</p>
-            <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">Challenge</a>
+            <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">
+                <img src="challenge.jpeg"  alt="Play Challenge" 
+                     style="width: 200px; height: auto; cursor: pointer; border-radius: 12px; 
+                            display: block;">
+            </a>
             <div style="display: flex; gap: 20px;">
                 <div><h3> Grand Prix results: </h3>
                 {leaderboard_html}</div>
