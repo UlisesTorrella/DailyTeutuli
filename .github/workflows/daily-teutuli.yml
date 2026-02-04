@@ -16,14 +16,12 @@ jobs:
         python-version: '3.x'
     
     - name: Install dependencies
-      run: pip install -r daily_teutuli/requirements.txt
+      run: pip install -r requirements.txt
       
     - name: Run Python script
       env:
         GEO_COOKIE: ${{ secrets.GEO_COOKIE }}
       run: |
-        cd daily_teutuli
-        ls -la
         echo "Running Python script..."
         python3 main.py
     
