@@ -19,6 +19,8 @@ class Reader:
 
     point_system = [25,18,15,12,10,8,6,4,2,1]
 
+    image_link = "https://raw.githubusercontent.com/UlisesTorrella/DailyTeutuli/refs/heads/main/challenge.jpeg"
+
     maps = {
         "Monday" : {
                         "map": "67756e6c8d7eb43c58faeebe",
@@ -270,7 +272,7 @@ class Reader:
             <body>
                 <p>Daily teutuli of the day:</p>
                 <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">
-                    <img src="challenge.jpeg"  alt="Play Challenge" 
+                    <img src="{self.image_link}"  alt="Play Challenge" 
                         style="width: 200px; height: auto; cursor: pointer; border-radius: 12px; 
                                 display: block;">
                 </a>
@@ -359,7 +361,7 @@ class Reader:
         <body>
             <p>Daily teutuli of the day:</p>
             <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">
-                <img src="challenge.jpeg"  alt="Play Challenge" 
+                <img src="{self.img_link}"  alt="Play Challenge" 
                      style="width: 200px; height: auto; cursor: pointer; border-radius: 12px; 
                             display: block;">
             </a>
