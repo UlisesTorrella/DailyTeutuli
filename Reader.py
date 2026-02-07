@@ -21,6 +21,19 @@ class Reader:
 
     image_link = "https://raw.githubusercontent.com/UlisesTorrella/DailyTeutuli/refs/heads/main/challenge.jpeg"
 
+# Fixed dictionary mapping country codes to YouTube anthem links
+    anthem_links = {
+            'AR': 'https://www.youtube.com/embed/OqSQo2aifAA',  # Argentina
+            'US': 'https://www.youtube.com/embed/vPKp29Luryc',  # USA
+            'FR': 'https://www.youtube.com/embed/LSzIVbkyoj8',  # France
+            'IT': 'https://www.youtube.com/embed/z3RToBymttA',  # Italy
+            'DE': 'https://www.youtube.com/embed/cGpUP_jyqDE',  # Germany ,
+            'AT': 'https://www.youtube.com/embed/AQfp888IRpo',  # Austria
+            'DK': 'https://www.youtube.com/embed/6feIR14GZFA',  # Denmark
+            'NO': 'https://www.youtube.com/embed/uzEplnaDlQ0',  # Norge
+            'ZZ': 'https://www.youtube.com/embed/fVT-WNbSZig',  # Olympic anthem
+        }
+
     maps = {
         "Monday" : {
                         "map": "67756e6c8d7eb43c58faeebe",
@@ -330,6 +343,10 @@ class Reader:
     def print_podium(self, standings_df):
 
         leaderboard_df = self.pretty_format(standings_df)
+        winner_name = standings_df.iloc[0]['Player']
+        winner_country = standings_df.iloc[0]['Country'] if not standings_df.empty else 'ZZ'
+        anthem_url = self.anthem_links.get(winner_country.upper(), self.anthem_links['ZZ'])
+
         if not leaderboard_df.empty:
             if len(leaderboard_df) >= 1:
                 leaderboard_df.iat[0, 0] = f"🥇"
@@ -361,10 +378,14 @@ class Reader:
         <body>
             <p>Daily teutuli of the day:</p>
             <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">
-                <img src="{self.img_link}"  alt="Play Challenge" 
+                <img src="{self.image_link}"  alt="Play Challenge" 
                      style="width: 200px; height: auto; cursor: pointer; border-radius: 12px; 
                             display: block;">
             </a>
+            <div style='margin-bottom: 20px;'>
+                <p><b>Please rise to hear the national anthem of our Grand Prix winner: {winner_name}.</b></p>
+                <iframe width='320' height='180' src='{anthem_url}' frameborder='0' allowfullscreen></iframe>
+            </div>
             <div style="display: flex; gap: 20px;">
                 <div><h3> Grand Prix results: </h3>
                 {leaderboard_html}</div>
@@ -383,7 +404,6 @@ class Reader:
 
         # Open the HTML file in the default browser
         webbrowser.open(f"file://{os.path.abspath('output.html')}")
-
 
     archive_folder = "archive"
     def archive_week(self):

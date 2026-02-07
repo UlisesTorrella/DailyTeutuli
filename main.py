@@ -29,4 +29,4 @@ elif today in (1, 2, 3, 4):
 
 else:
     # Go to church 
-    pass  
+    print("Go to church")
