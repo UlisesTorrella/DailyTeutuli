@@ -23,15 +23,15 @@ class Reader:
 
 # Fixed dictionary mapping country codes to YouTube anthem links
     anthem_links = {
-            'AR': 'https://www.youtube.com/embed/OqSQo2aifAA',  # Argentina
-            'US': 'https://www.youtube.com/embed/vPKp29Luryc',  # USA
-            'FR': 'https://www.youtube.com/embed/LSzIVbkyoj8',  # France
-            'IT': 'https://www.youtube.com/embed/z3RToBymttA',  # Italy
-            'DE': 'https://www.youtube.com/embed/cGpUP_jyqDE',  # Germany ,
-            'AT': 'https://www.youtube.com/embed/AQfp888IRpo',  # Austria
-            'DK': 'https://www.youtube.com/embed/6feIR14GZFA',  # Denmark
-            'NO': 'https://www.youtube.com/embed/uzEplnaDlQ0',  # Norge
-            'ZZ': 'https://www.youtube.com/embed/fVT-WNbSZig',  # Olympic anthem
+            'AR': 'OqSQo2aifAA',  # Argentina
+            'US': 'vPKp29Luryc',  # USA
+            'FR': 'LSzIVbkyoj8',  # France
+            'IT': 'z3RToBymttA',  # Italy
+            'DE': 'cGpUP_jyqDE',  # Germany ,
+            'AT': 'AQfp888IRpo',  # Austria
+            'DK': '6feIR14GZFA',  # Denmark
+            'NO': 'uzEplnaDlQ0',  # Norge
+            'ZZ': 'fVT-WNbSZig',  # Olympic anthem
         }
 
     maps = {
@@ -384,7 +384,12 @@ class Reader:
             </a>
             <div style='margin-bottom: 20px;'>
                 <p><b>Please rise to hear the national anthem of our Grand Prix winner: {winner_name}.</b></p>
-                <iframe width='320' height='180' src='{anthem_url}' frameborder='0' allowfullscreen></iframe>
+                <a href='https://www.youtube.com/embed/{anthem_url}' style='display: inline-block;'>
+                    <img src='https://img.youtube.com/vi/{anthem_url}/maxresdefault.jpg' 
+                        alt='National Anthem' 
+                        style='width: 320px; height: 180px; cursor: pointer; border-radius: 8px; border: 2px solid #1a73e8;'>
+                    <div style='text-align: center; margin-top: 5px;'>▶️ Click to play anthem</div>
+                </a>
             </div>
             <div style="display: flex; gap: 20px;">
                 <div><h3> Grand Prix results: </h3>
