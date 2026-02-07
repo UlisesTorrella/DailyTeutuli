@@ -347,6 +347,8 @@ class Reader:
         winner_country = standings_df.iloc[0]['Country'] if not standings_df.empty else 'ZZ'
         anthem_url = self.anthem_links.get(winner_country.upper(), self.anthem_links['ZZ'])
 
+        # Ensure the position column is of type string before assigning emojis
+        leaderboard_df.iloc[:, 0] = leaderboard_df.iloc[:, 0].astype(str)
         if not leaderboard_df.empty:
             if len(leaderboard_df) >= 1:
                 leaderboard_df.iat[0, 0] = f"🥇"
