@@ -388,7 +388,6 @@ class Reader:
                     <img src='https://img.youtube.com/vi/{anthem_url}/maxresdefault.jpg' 
                         alt='National Anthem' 
                         style='width: 200px; height: auto; cursor: pointer; border-radius: 8px; border: 2px solid #1a73e8;'>
-                    <div style='text-align: center; margin-top: 5px;'>▶️ Click to play anthem</div>
                 </a>
             </div>
             <div style="display: flex; gap: 20px;">
