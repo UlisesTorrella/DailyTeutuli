@@ -23,19 +23,8 @@ jobs:
         GEO_COOKIE: ${{ secrets.GEO_COOKIE }}
       run: |
         echo "Running Python script..."
-        python3 main.py
+        python3 test_monday.py
     
-    # - name: Commit and push changes
-    #   run: |
-    #     git config --global user.name 'github-actions[bot]'
-    #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-    #     git add .
-    #     git commit -m "Ran daily of $(date +'%d-%m-%Y')"
-    #     git push
-        
-    # - name: Pull latest changes
-    #   run: git pull
-
     - name: Set email subject
       run: |
         DAY=$(date +%A)
