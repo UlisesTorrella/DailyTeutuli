@@ -1,6 +1,8 @@
 name: Daily Challenge
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1-5'
 jobs:
   send-email:
     runs-on: ubuntu-latest
