@@ -8,11 +8,15 @@ import pandas as pd
 
 import urllib.request
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 class Reader:
 
     headers = {
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:141.0) Gecko/20100101 Firefox/141.0",
-                "Cookie": os.environ['GEO_COOKIE'],  # <-- paste from your browser
+                "Cookie": os.environ.get('GEO_COOKIE'), 
             }
 
     leaderboard_filename = "leaderboard.csv"
