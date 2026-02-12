@@ -4,6 +4,7 @@ __pycache__/
 lib
 lib64
 pyenv.cfg
+pyvenv.cfg
 # Virtual environments
 venv/
 .venv/
