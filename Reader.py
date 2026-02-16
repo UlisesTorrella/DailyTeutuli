@@ -31,7 +31,7 @@ class Reader:
             'US': 'vPKp29Luryc',  # USA
             'FR': 'LSzIVbkyoj8',  # France
             'IT': 'z3RToBymttA',  # Italy
-            'DE': 'cGpUP_jyqDE',  # Germany 
+            'DE': 'Xsu9cwwIiuw',  # Germany 
             'FM': 'vmTpxlfFR4c',  # Federated States of Micronesia
             'AT': 'AQfp888IRpo',  # Austria
             'DK': '6feIR14GZFA',  # Denmark
