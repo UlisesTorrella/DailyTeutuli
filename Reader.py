@@ -321,7 +321,10 @@ class Reader:
 
     championship_filename = "championship.csv"
     def week_results(self, standings_df):
-        point_system_padded = self.point_system + [0]*(len(standings_df) - len(self.point_system))
+        n = len(standings_df)
+        base = self.point_system
+
+        point_system_padded = base[:n] + [0] * max(0, n - len(base))
         standings_df["ChampionshipPoints"] = point_system_padded
         championship_df = pd.read_csv(self.
         championship_filename)
