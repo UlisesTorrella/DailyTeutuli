@@ -49,12 +49,17 @@ def send_html_email(sender_email, sender_password, recipient_email, subject, htm
 import os
 from dotenv import load_dotenv
 from datetime import datetime
-
+import pandas as pd
 
 if __name__ == "__main__":
 
     load_dotenv()
-    
+    # Guard: only run on weekdays
+    day_of_week = datetime.now().strftime('%A')
+    if day_of_week in ('Saturday', 'Sunday'):
+        print(f"It's {day_of_week}, no challenge today. Go to church.")
+        exit(0)
+
     # Get credentials from environment variables
     SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
     SENDER_PASSWORD = os.environ.get('SENDER_PASSWORD')
@@ -77,7 +82,22 @@ if __name__ == "__main__":
         'Friday': 'Flag Fredag!',
     }
     
-    SUBJECT = subject_map.get(day_of_week, 'Daily Teutuli')
+    # Check if today has a scheduled challenge with a custom subject
+    today_str = datetime.now().strftime("%d-%m-%Y")
+    schedule_csv = "scheduled_challenges.csv"
+    scheduled_subject = None
+
+    if os.path.exists(schedule_csv):
+        schedule_df = pd.read_csv(schedule_csv, dtype=str)
+        schedule_df["date"] = schedule_df["date"].str.strip()
+        match = schedule_df[schedule_df["date"] == today_str]
+        if not match.empty and "subject" in schedule_df.columns:
+            scheduled_subject = match.iloc[0]["subject"].strip()
+
+    if scheduled_subject is not None:
+        SUBJECT = scheduled_subject
+    else:
+        SUBJECT = subject_map.get(day_of_week, 'Daily Teutuli')
     
     # Read HTML content from file
     try:

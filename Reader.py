@@ -117,29 +117,43 @@ class Reader:
             self.last_date = pd.to_datetime(self.processed_df["Date"].iloc[-1])
 
     def create_challenge(self):
-        # Get today's day name (e.g. "Monday")
-        today = datetime.now().strftime("%A")
+        today = datetime.now()
+        today_str = today.strftime("%d-%m-%Y")
+        day_name = today.strftime("%A")
 
-        # Fetch the corresponding dictionary entry
-        
-        url = "https://www.geoguessr.com/api/v3/challenges"
-        headers = self.headers | {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-        }
-        payload = self.maps.get(today)
+        schedule_csv = "scheduled_challenges.csv"
+        scheduled_token = None
 
-        req = urllib.request.Request(
-            url=url,
-            data=json.dumps(payload).encode("utf-8"),
-            headers=headers,
-            method="POST"
-        )
+        if os.path.exists(schedule_csv):
+            schedule_df = pd.read_csv(schedule_csv, dtype=str)
+            schedule_df["date"] = schedule_df["date"].str.strip()
+            match = schedule_df[schedule_df["date"] == today_str]
+            if not match.empty:
+                scheduled_token = match.iloc[0]["token"].strip()
 
-        with urllib.request.urlopen(req) as response:
-            body = response.read().decode("utf-8")
-        response = json.loads(body)
-        return response["token"]
+        if scheduled_token is not None:
+            print(f"📅 Using scheduled challenge for {today_str}: {scheduled_token}")
+            return scheduled_token
+        else:
+            print(f"Generating challenge for {today_str}")
+            url = "https://www.geoguessr.com/api/v3/challenges"
+            headers = self.headers | {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            }
+            payload = self.maps.get(day_name)
+
+            req = urllib.request.Request(
+                url=url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers=headers,
+                method="POST"
+            )
+
+            with urllib.request.urlopen(req) as response:
+                body = response.read().decode("utf-8")
+            response = json.loads(body)
+            return response["token"]
     
     
     def fetch(self, challenge_id):

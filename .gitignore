@@ -34,3 +34,7 @@ htmlcov/
 build/
 dist/
 *.egg-info/
+
+# Ignoring championship data
+*.csv
+output.html
