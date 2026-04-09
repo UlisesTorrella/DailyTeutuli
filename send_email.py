@@ -78,7 +78,7 @@ if __name__ == "__main__":
         'Monday': 'Midwalls Monday',
         'Tuesday': 'Traceable Tuesday',
         'Wednesday': 'Wild Wednesday',
-        'Thursday': 'Teutuli Thursday',
+        'Thursday': 'Train Thursday',
         'Friday': 'Flag Fredag!',
     }
     
