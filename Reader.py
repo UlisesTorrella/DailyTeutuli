@@ -63,7 +63,7 @@ class Reader:
                         "guessMapType": "roadmap"
                     },
         "Wednesday" : {
-                        "map": "5be0de51fe3a84037ca36447",
+                        "map": "5ff8cd1ace04930001f743e0",
                         "timeLimit": 90,
                         "forbidMoving": True,
                         "forbidZooming": False,
