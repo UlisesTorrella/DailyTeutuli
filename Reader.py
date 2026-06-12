@@ -41,7 +41,7 @@ class Reader:
 
     maps = {
         "Monday" : {
-                        "map": "67756e6c8d7eb43c58faeebe",
+                        "map": "6a215cd7f666d137a0e7cea5",
                         "timeLimit": 90,
                         "forbidMoving": True,
                         "forbidZooming": False,
@@ -63,7 +63,7 @@ class Reader:
                         "guessMapType": "roadmap"
                     },
         "Wednesday" : {
-                        "map": "5ff8cd1ace04930001f743e0",
+                        "map": "637995a197112144412303c1",
                         "timeLimit": 90,
                         "forbidMoving": True,
                         "forbidZooming": False,
