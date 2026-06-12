@@ -75,9 +75,9 @@ if __name__ == "__main__":
     day_of_week = datetime.now().strftime('%A')
     
     subject_map = {
-        'Monday': 'Midwalls Monday',
+        'Monday': 'Mundial Monday',
         'Tuesday': 'Traceable Tuesday',
-        'Wednesday': 'Wildlife Wednesday',
+        'Wednesday': 'World Cup Stadiums Wednesday',
         'Thursday': 'Train Thursday',
         'Friday': 'Flag Fredag!',
     }
