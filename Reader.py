@@ -314,15 +314,16 @@ class Reader:
                             <div><h3> Current standings: </h3>
                             {leaderboard_html}</div>
                         </td>
+                        <td style="vertical-align: top; padding: 10px;">
+                            <div><h3> Guessers Championship standings:</h3>
+                            {championship_html}</div>
+                        </td>
                     </tr>
                 </table>
             </body>
             </html>
             """
-                        # <td style="vertical-align: top; padding: 10px;">
-                        #     <div><h3> Guessers Championship standings:</h3>
-                        #     {championship_html}</div>
-                        # </td>
+                       
 
             # Write the HTML content to a file
             with open("output.html", "w") as file:
@@ -415,12 +416,13 @@ class Reader:
             <div style="display: flex; gap: 20px;">
                 <div><h3> Grand Prix results: </h3>
                 {leaderboard_html}</div>
+                <div><h3> Guessers Championship standings:</h3>
+                    {championship_html}</div>
             </div>
         </body>
         </html>
         """
-        #  <div><h3> Guessers Championship standings:</h3>
-        #         {championship_html}</div>
+        
 
         # Write the HTML content to a file
         with open("output.html", "w") as file:
