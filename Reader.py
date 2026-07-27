@@ -41,7 +41,7 @@ class Reader:
 
     maps = {
         "Monday" : {
-                        "map": "6a215cd7f666d137a0e7cea5",
+                        "map": "67756e6c8d7eb43c58faeebe",
                         "timeLimit": 90,
                         "forbidMoving": True,
                         "forbidZooming": False,
@@ -63,7 +63,7 @@ class Reader:
                         "guessMapType": "roadmap"
                     },
         "Wednesday" : {
-                        "map": "637995a197112144412303c1",
+                        "map": "5be0de51fe3a84037ca36447",
                         "timeLimit": 90,
                         "forbidMoving": True,
                         "forbidZooming": False,
@@ -149,11 +149,14 @@ class Reader:
                 headers=headers,
                 method="POST"
             )
-
-            with urllib.request.urlopen(req) as response:
-                body = response.read().decode("utf-8")
-            response = json.loads(body)
-            return response["token"]
+            try: 
+                with urllib.request.urlopen(req) as response:
+                    body = response.read().decode("utf-8")
+                response = json.loads(body)
+                return response["token"]
+            except urllib.error.HTTPError as e:
+                print(e.read().decode())
+                raise
     
     
     def fetch(self, challenge_id):
