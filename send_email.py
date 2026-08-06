@@ -77,7 +77,7 @@ if __name__ == "__main__":
     subject_map = {
         'Monday': 'Indoor Monday',
         'Tuesday': 'Traceable Tuesday',
-        'Wednesday': 'Wild Wednesday',
+        'Wednesday': 'Water Wednesday',
         'Thursday': 'Train Thursday',
         'Friday': 'Flag Fredag!',
     }
