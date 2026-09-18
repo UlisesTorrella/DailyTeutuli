@@ -14,8 +14,9 @@ if today == 0:
     reader.commit_changes(results, reader.leaderboard_filename) 
     reader.commit_changes(processed_df, reader.processed_csv)
     championship_df = reader.week_results(results)
+    championship_df, champion_name = reader.finish_championship_if_needed(championship_df)
     reader.commit_changes(championship_df, reader.championship_filename)
-    reader.print_podium(results)
+    reader.print_podium(results, champion_name=champion_name)
     reader.archive_week()
 
 elif today in (1, 2, 3, 4):

@@ -1,6 +1,8 @@
 import json
 import os
 import webbrowser
+from html import escape
+from pathlib import Path
 
 
 from datetime import datetime, timedelta
@@ -22,6 +24,7 @@ class Reader:
     leaderboard_filename = "leaderboard.csv"
 
     point_system = [25,18,15,12,10,8,6,4,2,1]
+    championship_winning_points = 200
 
     image_link = "https://raw.githubusercontent.com/UlisesTorrella/DailyTeutuli/refs/heads/main/challenge.jpeg"
 
@@ -366,7 +369,7 @@ class Reader:
         except:
             return code
     
-    def print_podium(self, standings_df):
+    def print_podium(self, standings_df, champion_name=None):
 
         leaderboard_df = self.pretty_format(standings_df)
         winner_name = standings_df.iloc[0]['Player']
@@ -387,12 +390,34 @@ class Reader:
             index=False, border=0, justify="center", classes="leaderboard-table"
         )
 
-        championship_df = pd.read_csv(self.
-        championship_filename)
+        final_standings = getattr(self, "final_championship_standings", None)
+        if champion_name is not None and final_standings is not None:
+            championship_df = final_standings
+            championship_title = "Final Geoguessers Championship standings"
+        else:
+            championship_df = pd.read_csv(self.championship_filename)
+            championship_title = "Guessers Championship standings"
         championship_html = championship_df.to_html(
             header=True,
             index=False, border=0, justify="center", classes="leaderboard-table"
         )
+
+        champion_html = ""
+        if champion_name is not None:
+            safe_champion_name = escape(champion_name)
+            congratulation_path = Path(__file__).resolve().parent / "champion_congratulation.html"
+            congratulation_html = (
+                congratulation_path.read_text(encoding="utf-8")
+                if congratulation_path.is_file()
+                else ""
+            )
+            champion_html = (
+                "<div style='margin-bottom: 20px;'>"
+                f"<h2>🏆 {safe_champion_name} is the Guessers Champion!</h2>"
+                f"{congratulation_html}"
+                "<p>A new championship starts today. Good luck!</p>"
+                "</div>"
+            )
 
         # HTML content with improved styling and blue theme
         html_content = f"""
@@ -402,6 +427,7 @@ class Reader:
             </style>
         </head>
         <body>
+            {champion_html}
             <p>Daily teutuli of the day:</p>
             <a href="https://www.geoguessr.com/challenge/{self.new_challenge_id}">
                 <img src="{self.image_link}"  alt="Play Challenge" 
@@ -419,7 +445,7 @@ class Reader:
             <div style="display: flex; gap: 20px;">
                 <div><h3> Grand Prix results: </h3>
                 {leaderboard_html}</div>
-                <div><h3> Guessers Championship standings:</h3>
+                <div><h3> {championship_title}:</h3>
                     {championship_html}</div>
             </div>
         </body>
@@ -437,6 +463,41 @@ class Reader:
         webbrowser.open(f"file://{os.path.abspath('output.html')}")
 
     archive_folder = "archive"
+
+    def finish_championship_if_needed(self, championship_df):
+        """Archive and reset a completed championship, retaining its final podium table."""
+        self.final_championship_standings = None
+        if championship_df.empty:
+            return championship_df, None
+
+        final_standings = championship_df.sort_values(
+            by="ChampionshipPoints", ascending=False
+        ).reset_index(drop=True)
+        leader = final_standings.iloc[0]
+        if leader["ChampionshipPoints"] < self.championship_winning_points:
+            return final_standings, None
+
+        os.makedirs(self.archive_folder, exist_ok=True)
+        date = datetime.now().strftime("%Y-%m-%d")
+        archive_path = os.path.join(
+            self.archive_folder, f"championship_{date}.csv"
+        )
+        suffix = 2
+        while os.path.exists(archive_path):
+            archive_path = os.path.join(
+                self.archive_folder, f"championship_{date}_{suffix}.csv"
+            )
+            suffix += 1
+
+        final_standings.to_csv(archive_path, index=False, encoding="utf-8")
+        self.final_championship_standings = final_standings.copy()
+        champion_name = str(leader["Player"])
+        print(f"🏆 {champion_name} won the championship!")
+        print(f"✅ Championship archived at: {archive_path}")
+
+        # Keeping the columns starts the next championship immediately.
+        return final_standings.iloc[0:0].copy(), champion_name
+
     def archive_week(self):
         leaderboard_df = pd.read_csv(self.leaderboard_filename)
         # Get current ISO week number
